@@ -1,0 +1,24 @@
+﻿@model BowlingMVC.Models.Customers
+
+@{
+    ViewData["Title"] = "Book én bane";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto text-center">
+            <h1 class="display-4">Har du bestilt før?</h1>
+            <hr class="my-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mx-auto text-center">
+            
+            <a asp-controller="Booking" asp-action="Index" class="btn btn-info btn-lg btn-block">Er du registreret? Klik her</a>
+        </div>
+        <div class="col-lg-6 mx-auto text-center">
+            <a asp-controller="Customer" asp-action="Create" class="btn btn-dark btn-lg btn-block">Ny kunde? Klik her</a>
+        </div>
+    </div>
+</div>
+

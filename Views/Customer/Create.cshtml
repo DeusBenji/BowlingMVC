@@ -1,0 +1,89 @@
+﻿@model BowlingMVC.Models.Customers
+
+@{
+    ViewData["Title"] = "Book en bane";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto text-center">
+            <h1 class="display-4">Første gang?</h1>
+            <hr class="my-4">
+        </div>
+    </div>
+    Så skal vi lige bruge lidt oplysninger, vi lover det er nemmere næste gang.<br /><br />
+
+    <form asp-controller="Customer" asp-action="Create" method="post">
+        <legend>Indtast dine oplysninger</legend>
+        <br />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="FirstName">Fornavn</label>
+                <input type="text" name="FirstName" class="form-control" id="FirstName" value="@Model?.FirstName" placeholder="Fornavn" required>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="LastName">Efternavn</label>
+                <input type="text" name="LastName" class="form-control" id="LastName" value="@Model?.LastName" placeholder="Efternavn" required>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="Email">Email</label>
+                <input type="email" name="Email" class="form-control" id="Email" value="@Model?.Email" placeholder="Email" required>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Phone">Telefonnummer</label>
+                <input type="tel" name="Phone" class="form-control" id="Phone" value="@Model?.Phone" placeholder="Telefonnummer" required>
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="Booking.StartDateTime">Ønsket dato og tidspunkt</label>
+                <input type="datetime-local" name="Booking.StartDateTime" class="form-control" id="bookingDateTimeInput" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="NoOfPlayers">Antal spillere</label>
+                <select class="form-control" name="Booking.NoOfPlayers" id="NoOfPlayers" required>
+                    <option value="">Vælg antal spillere</option>
+                    @for (int i = 1; i <= 6; i++)
+                    {
+                        <option value="@i">@i spillere</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="HoursToPlay">Hvor mange timer vil i spille?</label>
+                <select class="form-control" name="Booking.HoursToPlay" id="HoursToPlay" required>
+                    <option value="">Vælg antal timer</option>
+                    @for (int i = 1; i <= 4; i++)
+                    {
+                        <option value="@i">@i spillere</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-warning">Bekræft</button>
+    </form>
+</div>
+
+<script>
+    // Get the booking date and time input element
+    var bookingDateTimeInput = document.getElementById('bookingDateTimeInput');
+
+    bookingDateTimeInput.addEventListener('input', function () {
+        var date = new Date(this.value);
+        // Take calculation for timezone
+        var timeZoneOffset = date.getTimezoneOffset();
+        date.setMinutes(date.getMinutes() - timeZoneOffset);
+        // Set minutes to zero
+        date.setMinutes(0);
+        this.value = date.toISOString().slice(0, 16);
+    });
+</script>
